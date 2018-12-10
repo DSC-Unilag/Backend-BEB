@@ -1,0 +1,23 @@
+{
+  "name": "adavizealiyu",
+  "version": "1.0.0",
+  "description": "BEB 20 days of code",
+  "main": "db.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdavizeTheFirst/Backend-BEB.git"
+  },
+  "author": "Aliyu Israel Adavize",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdavizeTheFirst/Backend-BEB/issues"
+  },
+  "homepage": "https://github.com/AdavizeTheFirst/Backend-BEB#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
