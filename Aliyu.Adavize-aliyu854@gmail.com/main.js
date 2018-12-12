@@ -24,8 +24,6 @@ function User(firstName, lastName, address, email, phoneNumber){
   this.email = email
   this.phoneNumber = phoneNumber
   }
-
-
  //Create new user
 app.post("/createUser", function(req, res){
  var newUser = new User(req.body.firstName, req.body.lastName, req.body.address, req.body.email, req.body.phoneNumber)
@@ -55,6 +53,14 @@ app.delete("/deleteUser/:id", function(req, res){
   }
   db.write(data)
   res.send("The contact has been deleted succesfully")
+})
+//Get single contact
+app.get("/get/:id", function(req,err){
+  var id = req.params.id 
+  data = db.read()
+  for(var i = data.length-1; i--;){
+    if ( data[i].id === id){res.send(data[i].id)
+    }}
 })
 
 
