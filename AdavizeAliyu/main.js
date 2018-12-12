@@ -18,14 +18,26 @@ function newUser(firstName, lastName, address, email, phoneNumber){
  this.phoneNumber = phoneNumber
  }
 
+
+ //Create new user
 app.post("/createUser", function(req, res){
- var newUser = new newUser
+ var newUser = new newUser(req.body.firstName, req.body.lastName, req.body.address, req.body.email, req.body.phoneNumber)
  var data = db.read().push(newUser)
  db.write(data)
-
- res.send(`the user was created successfully`)
+ res.send(`the user was created successfully id: ${newUser.id}`)
  });
 
+//Delete User
+app.delete("/deleteUser/:id", function(req, res){
+ var id = req.params.id
+ var data = db.read()
+ for( var i = data.length-1; i--;){
+  if ( data[i].id === id) {data.splice(i,1)};
+  }
+  res.send("The contact has been deleted succesfully")
+})
 
 
-app.listen(3000)
+app.listen(3000, function(){
+ console.log("application is listening on port 3000")
+})
