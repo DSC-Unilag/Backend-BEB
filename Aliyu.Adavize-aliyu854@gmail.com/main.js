@@ -35,7 +35,7 @@ app.post("/createUser", function(req, res){
  app.put("/editUser/:id", function(req, res){
   var  id = req.params.id
   var data = db.read()
-  for( var i = data.length-1; i--;){
+  for( var i = data.length; i--;){
     if ( data[i].id === id) {
       var newUser = new Edit(id, req.body.firstName, req.body.lastName, req.body.address, req.body.email, req.body.phoneNumber)
       data[i] = newUser
@@ -48,21 +48,39 @@ app.post("/createUser", function(req, res){
 app.delete("/deleteUser/:id", function(req, res){
  var id = req.params.id
  var data = db.read()
- for( var i = data.length-1; i--;){
+ for( var i = data.length; i--;){
   if ( data[i].id === id) {data.splice(i,1)};
   }
   db.write(data)
   res.send("The contact has been deleted succesfully")
 })
 //Get single contact
-app.get("/get/:id", function(req,err){
+app.get("/getByid/:id", function(req,err){
   var id = req.params.id 
   data = db.read()
-  for(var i = data.length-1; i--;){
+  for(var i = data.length; i--;){
     if ( data[i].id === id){res.send(data[i].id)
     }}
 })
-
+//Get all contacts
+app.get("/getAll", function(req,res){
+  data = db.read()
+  data.forEach(function(contact){
+    res.send(contact)
+  })
+})
+//Get by name
+app.get("/getByname/:anyName", function(req,res){
+var name = req.params.anyName
+var data = db.read()
+var response = ""
+for( var i = data.length; i--;){
+                    //Search first and last names
+  if ( data[i].firstName === name || data[i].lastName === name){response +=
+    `id: ${data[i].id}, Name: ${data[i].firstName} ${data[i].lastName} `
+  }}
+  res.send(response)
+})
 
 app.listen(3000, function(){
  console.log("application is listening on port 3000")
