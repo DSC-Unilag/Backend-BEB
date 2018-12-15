@@ -62,26 +62,27 @@ app.get("/getByid/:id", function(req,err){
     if ( data[i].id === id){res.send(data[i].id)
     }}
 })
-//Get all contacts
+//Get all contacts filter by Id and name
 app.get("/getAll", function(req,res){
-  data = db.read()
+ var data = db.read()
+ var response = ""
   data.forEach(function(contact){
-    res.send(contact)
+    response += `id: ${contact.id} Name: ${contact.firstName} ${contact.lastName} ---`
   })
-})
-//Get by name
-app.get("/getByname/:anyName", function(req,res){
-var name = req.params.anyName
-var data = db.read()
-var response = ""
-for( var i = data.length; i--;){
-                    //Search first and last names
-  if ( data[i].firstName === name || data[i].lastName === name){response +=
-    `id: ${data[i].id}, Name: ${data[i].firstName} ${data[i].lastName} `
-  }}
   res.send(response)
 })
-
-app.listen(3000, function(){
- console.log("application is listening on port 3000")
-})
+//Search by Name (first/Last)
+app.get("/getByname/:anyName", function(req,res){
+  var name = req.params.anyName
+  var data = db.read()
+  var response = ""
+  for( var i = data.length; i--;){
+ if ( data[i].firstName === name || data[i].lastName === name){response +=
+      `id: ${data[i].id} Name: ${data[i].firstName} ${data[i].lastName} -`
+    }}
+    res.send(response)
+  })
+  
+  app.listen(3000, function(){
+   console.log("application is listening on port 3000")
+  })
