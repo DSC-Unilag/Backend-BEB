@@ -55,12 +55,16 @@ app.delete("/deleteUser/:id", function(req, res){
   res.send("The contact has been deleted succesfully")
 })
 //Get single contact
-app.get("/getByid/:id", function(req,err){
-  var id = req.params.id 
-  data = db.read()
+app.get("/getByid/:id", function(req,res){
+  var id = req.params.id
+  var response = ""
+  var data = db.read()
   for(var i = data.length; i--;){
-    if ( data[i].id === id){res.send(data[i].id)
+    if (data[i].id === Number(id)){response = data[i]
     }}
+    if(response === ""){response = "No record found" }
+
+    res.send(response)
 })
 //Get all contacts filter by Id and name
 app.get("/getAll", function(req,res){
@@ -77,9 +81,13 @@ app.get("/getByname/:anyName", function(req,res){
   var data = db.read()
   var response = ""
   for( var i = data.length; i--;){
- if ( data[i].firstName === name || data[i].lastName === name){response +=
+ if ( data[i].firstName.toUpperCase() === name.toUpperCase() || data[i].lastName.toUpperCase() === name.toUpperCase()){response +=
       `id: ${data[i].id} Name: ${data[i].firstName} ${data[i].lastName} -`
     }}
+
+if (response  === ""){
+    response = "No record found"
+  }
     res.send(response)
   })
   
