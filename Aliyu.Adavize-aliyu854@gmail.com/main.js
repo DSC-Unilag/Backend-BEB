@@ -34,25 +34,40 @@ app.post("/createUser", function(req, res){
  //Edit user
  app.put("/editUser/:id", function(req, res){
   var  id = req.params.id
+  var found = ""
   var data = db.read()
   for( var i = data.length; i--;){
-    if ( data[i].id === id) {
+    if ( data[i].id === Number(id)) {
+      var found = "yes"
       var newUser = new Edit(id, req.body.firstName, req.body.lastName, req.body.address, req.body.email, req.body.phoneNumber)
       data[i] = newUser
       db.write(data)
-      res.send("edit successful")
     };
     } 
+  if(found != "yes"){
+    res.send(`Unable to edit no record found ref: ${id}`)
+  }
+  else{
+    res.send("edit successful")
+  }
+
  })
 //Delete User
 app.delete("/deleteUser/:id", function(req, res){
+  var found;
  var id = req.params.id
  var data = db.read()
  for( var i = data.length; i--;){
-  if ( data[i].id === id) {data.splice(i,1)};
+  if ( data[i].id ===Number(id)) {
+    var found = "yes"
+    data.splice(i,1)
+  };
   }
   db.write(data)
-  res.send("The contact has been deleted succesfully")
+  if(found != "yes"){
+    res.send(`The contact was not found, can't delete ref:${id}`)
+  }
+  else{res.send("The contact has been deleted succesfully")}
 })
 //Get single contact
 app.get("/getByid/:id", function(req,res){
@@ -84,13 +99,14 @@ app.get("/getByname/:anyName", function(req,res){
  if ( data[i].firstName.toUpperCase() === name.toUpperCase() || data[i].lastName.toUpperCase() === name.toUpperCase()){response +=
       `id: ${data[i].id} Name: ${data[i].firstName} ${data[i].lastName} -`
     }}
-
 if (response  === ""){
     response = "No record found"
   }
     res.send(response)
   })
   
+
+
   app.listen(3000, function(){
    console.log("application is listening on port 3000")
   })
