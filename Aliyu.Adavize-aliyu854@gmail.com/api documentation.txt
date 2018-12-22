@@ -21,8 +21,24 @@
 
  3. Delete contact end point
  *Receives a delete request at "/deleteUser/:id"
- *The id of the contact to be delete is retrieved from the request header
+ *The id of the contact to be deleted is retrieved from the request header
  *the JSON database is retrieved and searched through for the contact with the given id, then deletes it if found and saved
  *A response is sent to the client regarding the status of the operation
 
-4. Get single contact endpoint
+4. Get single contact
+*Receives a get request at "/getByid/:id"
+*The id of the contact to be retrieved is retrieved from the request header
+*The JSON database is retrieved and searched for the contact with the given id
+*The contact details are then sent to the user if found/ the status of the operation
+
+5. Get all contacts(filter by id and username)
+*Receives a get request at "/getAll"
+*the JSON database is retrieved, looped through and all id's and contacts are sent to the client 
+
+6. Search contact by name (either first or last)
+*Receives a get request at "/getByname/:anyName"
+*The name of the contact to be retrieved is retrieved from the request header
+*The JSON database is retrieved and searched for the contact with the given name
+*The id and full name of all contacts found with the searched name is
+sent to the client
+*If no contact is found, a response is sent indicating
