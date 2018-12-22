@@ -88,6 +88,7 @@ app.get("/getAll", function(req,res){
   data.forEach(function(contact){
     response += `id: ${contact.id} Name: ${contact.firstName} ${contact.lastName} ---`
   })
+  if (response === ""){response = "No contact in database"}
   res.send(response)
 })
 //Search by Name (first/Last)
@@ -99,7 +100,7 @@ app.get("/getByname/:anyName", function(req,res){
  if ( data[i].firstName.toUpperCase() === name.toUpperCase() || data[i].lastName.toUpperCase() === name.toUpperCase()){response +=
       `id: ${data[i].id} Name: ${data[i].firstName} ${data[i].lastName} -`
     }}
-if (response  === ""){
+if (data.length === 0 ){
     response = "No record found"
   }
     res.send(response)
