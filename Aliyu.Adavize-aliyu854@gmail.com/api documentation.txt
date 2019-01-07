@@ -1,0 +1,44 @@
+1. Create contact end point
+*Receives and object via a post request at "/createUser" 
+*the posted object is in the format {"firstName" : "Vize",
+ "lastName" : "Aliyu Adavize",
+ "address ": "A street in brooklyn",
+ "email" : "alyu854@gmail.com",
+ "phoneNumber" : "08187425208"}
+ *the endpoint parses the posted object, generates a unique id, creates an object(User) with all the information and stores it in a JSON file inside and array which serves as the database
+ *A response is sent to the client on the status of the operation
+
+ 2. Edit contact end
+ *Receives an object(containing the new information) via a put request at "/editUser/:id"
+ *the object is in the format {"firstName" : "Vize",
+ "lastName" : "Aliyu Adavize",
+ "address ": "A street in brooklyn",
+ "email" : "alyu854@gmail.com",
+ "phoneNumber" : "08187425208"}
+ *the id of the contact is to be edited is retrieved from the request header
+ *the JSON database is retrieved and the contact with the given id is edited and saved back to the database
+ *A response is sent to the client on the status of the operation
+
+ 3. Delete contact end point
+ *Receives a delete request at "/deleteUser/:id"
+ *The id of the contact to be deleted is retrieved from the request header
+ *the JSON database is retrieved and searched through for the contact with the given id, then deletes it if found and saved
+ *A response is sent to the client regarding the status of the operation
+
+4. Get single contact
+*Receives a get request at "/getByid/:id"
+*The id of the contact to be retrieved is retrieved from the request header
+*The JSON database is retrieved and searched for the contact with the given id
+*The contact details are then sent to the user if found/ the status of the operation
+
+5. Get all contacts(filter by id and username)
+*Receives a get request at "/getAll"
+*the JSON database is retrieved, looped through and all id's and contacts are sent to the client 
+
+6. Search contact by name (either first or last)
+*Receives a get request at "/getByname/:anyName"
+*The name of the contact to be retrieved is retrieved from the request header
+*The JSON database is retrieved and searched for the contact with the given name
+*The id and full name of all contacts found with the searched name is
+sent to the client
+*If no contact is found, a response is sent indicating
